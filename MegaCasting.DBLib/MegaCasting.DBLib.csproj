@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MegaCasting.Core\MegaCasting.Core.csproj" />
+  </ItemGroup>
+
 </Project>

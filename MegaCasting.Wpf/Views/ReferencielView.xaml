@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="MegaCasting.Wpf.Views.ReferencielView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MegaCasting.Wpf.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid ShowGridLines="True">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            
+        </Grid.ColumnDefinitions>
+
+        <ListBox ItemsSource="{Binding TypeContrats}"
+                  SelectedItem="{Binding SelectedTypeContrat}"
+                 DisplayMemberPath="Nom"
+                 Grid.Column="0"
+                  >
+        </ListBox>
+
+        <ListBox ItemsSource="{Binding DomaineMetiers}"
+          SelectedItem="{Binding SelectedDomaineMetier}"
+         DisplayMemberPath="Nom"
+         Grid.Column="1"
+          >
+        </ListBox>
+        <ListBox ItemsSource="{Binding Metiers}"
+          SelectedItem="{Binding SelectedMetier}"
+         DisplayMemberPath="Nom"
+         Grid.Column="2"
+          >
+        </ListBox>
+
+        <GroupBox x:Name="_TypeContratGroupBox" Header="Type de Contrat" Grid.Column="0" Grid.Row="1" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Nom : "/>
+                <TextBox x:Name="_TypeContratNomTextBox" Grid.Row="0" Grid.Column="1" DataContext="{Binding SelectedTypeContrat.Nom}" />
+                <Button x:Name="UpdateTypeContratButton" Grid.Row="1" Grid.Column="0" Content="Modifier" Click="UpdateTypeContratButton_Click"  />
+                <Button x:Name="DeleteTypeContratButton" Grid.Row="1" Grid.Column="1" Content="Supprimer" Click="DeleteTypeContratButton_Click" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="_DomaineMetierGroupBox" Header="Domaine de metier" Grid.Column="1" Grid.Row="1" Visibility="{Binding SelectedMetier}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Nom : "/>
+            <TextBox x:Name="_DomaineMetierNomTextBox" Grid.Row="0" Grid.Column="1" DataContext="{Binding SelectedDomaineMetier.Nom}" />
+            <Button x:Name="UpdateDomaineMetierButton" Grid.Row="1" Grid.Column="0" Content="Modifier" Click="UpdateDomaineMetierButton_Click"  />
+            <Button x:Name="DeleteDomaineMetierButton" Grid.Row="1" Grid.Column="1" Content="Supprimer" Click="DeleteDomaineMetierButton_Click" />
+        </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="_MetierGroupBox" Header="Metier" Grid.Column="2" Grid.Row="1" Visibility="{Binding SelectedMetier}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Nom : "/>
+                <TextBox x:Name="_MetierNomTextBox" Grid.Row="0" Grid.Column="1" DataContext="{Binding SelectedMetier.Nom}" />
+                <Button x:Name="UpdateMetierButton" Grid.Row="1" Grid.Column="0" Content="Modifier" Click="UpdateMetierButton_Click"  />
+                <Button x:Name="DeleteMetierButton" Grid.Row="1" Grid.Column="1" Content="Supprimer" Click="DeleteMetierButton_Click" />
+            </Grid>
+        </GroupBox>
+        
+    </Grid>
+</UserControl>

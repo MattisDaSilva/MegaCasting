@@ -22,7 +22,7 @@
                     <Setter Property="Text" Value=""/>
                 </Trigger>
                 <Trigger Property="IsFocused" Value="False">
-                    <Setter Property="Text" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Tag)}"/>
+                    <!--<Setter Property="Text" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Tag)}"/>-->
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -50,16 +50,26 @@
                 </MenuItem>
             </Menu>
 
-            <GroupBox Grid.Row="2" Grid.Column="0" Margin="10" Width="250" Background="LightBlue">
-                <StackPanel>
-                    <TextBlock Text="Nom du casting 1" FontSize="18" Margin="10" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Metier" FontSize="14" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Dates" FontSize="14" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Autres informations..." FontSize="14" HorizontalAlignment="Center"/>
-                    <Button Width="75" Margin="2">Editer</Button>
-                    <Button Width="75" Margin="2">Supprimer</Button>
-                </StackPanel>
-            </GroupBox>
+
+            <ListBox x:Name="_BrandListBox" Grid.Column="0" Grid.Row="1"
+				 ItemsSource="{Binding Offres}"
+				 SelectedItem="{Binding SelectedOffreCasting}"
+				 Grid.RowSpan="2">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Intitule}" FontSize="18" Margin="10" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding Metier.Nom}" FontSize="14" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding DatePublication}" FontSize="14" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Autres informations..." FontSize="14" HorizontalAlignment="Center"/>
+                            <Button Width="75" Margin="2">Editer</Button>
+                            <Button Width="75" Margin="2">Supprimer</Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            
+            
 
             <GroupBox x:Name="_AddCasting" Header="Ajouter un casting" Grid.Row="2" Grid.Column="1" Width="250" Background="LavenderBlush">
                 <StackPanel>
@@ -103,7 +113,8 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox x:Name="_EditCasting" Header="Editer un casting" Grid.Column="3" Grid.Row="1" Visibility="{Binding SelectedBrand, Converter={StaticResource SharedObjectToVisibilityConverter}}" Width="250" Background="LightPink">
+            <GroupBox x:Name="_EditCasting" Header="Editer un casting" Grid.Column="3" Grid.Row="1" Width="250" Background="LightPink">
+                <!--<GroupBox x:Name="_EditCasting" Header="Editer un casting" Grid.Column="3" Grid.Row="1" Visibility="{Binding SelectedBrand, Converter={StaticResource SharedObjectToVisibilityConverter}}" Width="250" Background="LightPink">-->
                 <StackPanel>
                     <TextBox  Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Nom du casting" />
                     <TextBox TextWrapping="Wrap" AcceptsReturn="True" Width="200" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Intitulé du poste"/>
