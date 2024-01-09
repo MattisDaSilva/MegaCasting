@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MegaCasting.Core;
 using MegaCasting.DBLib.Models;
+using Prism.Commands;
 
 namespace MegaCasting.Wpf.ViewModels
 {
@@ -19,6 +16,9 @@ namespace MegaCasting.Wpf.ViewModels
         /// </summary>
         private TypeContrat? _SelectedTypeContrat;
 
+        private OffreCasting? _SelectedOffreCasting;
+
+        private ObservableCollection<OffreCasting> _OffreCastings;
         private ObservableCollection<TypeContrat>? _TypeContrats;
 
         /// <summary>
@@ -35,6 +35,9 @@ namespace MegaCasting.Wpf.ViewModels
 
         private ObservableCollection<DomaineMetier>? _DomaineMetiers;
 
+        private DelegateCommand<object> _CmdAddOffreCasting;
+
+
         #endregion
 
         #region Properties
@@ -42,6 +45,12 @@ namespace MegaCasting.Wpf.ViewModels
         /// <summary>
         /// Obtient ou défini le type de contrat séléctionné
         /// </summary>
+        
+        public ObservableCollection<OffreCasting> OffreCastings 
+        {
+            get => _OffreCastings;
+            set => SetProperty(nameof(OffreCastings), ref _OffreCastings, value);
+        }
         public ObservableCollection<TypeContrat>? TypeContrats
         {
             get => _TypeContrats;
@@ -52,6 +61,12 @@ namespace MegaCasting.Wpf.ViewModels
         {
             get => _SelectedTypeContrat; 
             set => SetProperty(nameof(SelectedTypeContrat), ref _SelectedTypeContrat, value); 
+        }
+
+        public OffreCasting? SelectedOffreCasting
+        {
+            get => _SelectedOffreCasting;
+            set => SetProperty(nameof(SelectedOffreCasting), ref _SelectedOffreCasting, value);
         }
 
         /// <summary>
@@ -83,6 +98,13 @@ namespace MegaCasting.Wpf.ViewModels
             get => _SelectedMetier;
             set => SetProperty(nameof(SelectedMetier), ref _SelectedMetier, value);
         }
+
+        public DelegateCommand<object> CmdAddOffreCasting
+        {
+            get => _CmdAddOffreCasting;
+            set => _CmdAddOffreCasting = value;
+        }
+
         #endregion
 
         #region Constructors
@@ -97,9 +119,52 @@ namespace MegaCasting.Wpf.ViewModels
                 Metiers = new ObservableCollection<Metier>(mg.Metiers.ToList());
 
             }
+            
+            CmdAddOffreCasting = new DelegateCommand<object>(AddOffreCasting, CanAddOffreCasting).ObservesProperty(() => this.SelectedOffreCasting);
+
+            using (MegaCastingContext context = new MegaCastingContext())
+            {
+                if (!context.OffreCastings.Any())
+                {;
+                    context.OffreCastings.AddRange(OffreCastings);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    this.OffreCastings = new ObservableCollection<OffreCasting>(context.OffreCastings);
+                }
+            }
         }
 
 
+        #endregion
+        #region Commands
+
+        private void AddOffreCasting(object parameter = null)
+        {
+            OffreCasting offrecasting = new OffreCasting("test",2);
+            this.OffreCastings.Add(offrecasting);
+
+            using (MegaCastingContext context = new MegaCastingContext())
+            {
+                context.OffreCastings.Add(offrecasting);
+                context.SaveChanges();
+            }
+
+        }
+
+        private bool CanAddOffreCasting(object parameter = null) => !(this.SelectedOffreCasting == null);
+
+        private void ReloadContext()
+        {
+            this.OffreCastings.Clear();
+            using (MegaCastingContext context = new MegaCastingContext())
+            {
+                //context.OffreCastings.Add(new OffreCasting("Nouvelle offre de casting"));
+                //this._Brands context.Brands.ToList();
+                context.SaveChanges();
+            }
+        }
         #endregion
     }
 }

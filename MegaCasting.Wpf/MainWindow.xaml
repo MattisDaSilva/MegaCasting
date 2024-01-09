@@ -3,160 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MegaCasting.Wpf" xmlns:views="clr-namespace:MegaCasting.Wpf.Views"
+        xmlns:local="clr-namespace:MegaCasting.Wpf" 
+        xmlns:views="clr-namespace:MegaCasting.Wpf.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:adorners="http://gu.se/Adorners"
+        Title="MainWindow" Height="450" Width="800"        
+        >
+
     <Window.Resources>
-        <Style TargetType="Button" x:Key="btn">
-            <Setter Property="Background" Value="LightPink"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-        
-        <Style x:Key="PlaceholderTextBoxStyle" TargetType="TextBox">
-            <Setter Property="Text" Value=""/>
-            <Style.Triggers>
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="Text" Value=""/>
-                </Trigger>
-                <Trigger Property="IsFocused" Value="False">
-                    <!--<Setter Property="Text" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Tag)}"/>-->
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        
+
+
+
     </Window.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid ShowGridLines="true">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Menu Grid.Row="0" Grid.ColumnSpan="3">
-                <MenuItem Header="Fichier">
-                    <MenuItem Header="Sauvegarder" />
-                    <MenuItem Header="Quitter"/>
-                </MenuItem>
-                <MenuItem Header="Édition">
-                    <MenuItem Header="Ajouter" />
-                    <MenuItem Header="Supprimer" />
-                </MenuItem>
-            </Menu>
+    
+    <TabControl Grid.Row="1">
+        <TabItem Header="Formulaire">
+            <views:ContractView/>
+        </TabItem>
+        <TabItem Header="Gestion des marques" >
+            <views:ReferencielView/>
+        </TabItem>
+    </TabControl>
 
-
-            <ListBox x:Name="_BrandListBox" Grid.Column="0" Grid.Row="1"
-				 ItemsSource="{Binding Offres}"
-				 SelectedItem="{Binding SelectedOffreCasting}"
-				 Grid.RowSpan="2">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Intitule}" FontSize="18" Margin="10" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding Metier.Nom}" FontSize="14" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding DatePublication}" FontSize="14" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Autres informations..." FontSize="14" HorizontalAlignment="Center"/>
-                            <Button Width="75" Margin="2">Editer</Button>
-                            <Button Width="75" Margin="2">Supprimer</Button>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            
-            
-
-            <GroupBox x:Name="_AddCasting" Header="Ajouter un casting" Grid.Row="2" Grid.Column="1" Width="250" Background="LavenderBlush">
-                <StackPanel>
-                    <TextBox  Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Nom du casting" />
-                    <TextBox TextWrapping="Wrap" AcceptsReturn="True" Width="200" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Intitulé du poste"/>
-
-                    <ComboBox Grid.Row="1" Grid.Column="0" Width="200" Margin="2" SelectedIndex="0">
-                        <ComboBoxItem Content="Type de Contrat" />
-                        <ComboBoxItem Content="CDD" />
-                        <ComboBoxItem Content="CDI" />
-                        <ComboBoxItem Content="Stage"/>
-                        <ComboBoxItem Content="Alternance"/>
-                    </ComboBox>
-
-                    <ComboBox Grid.Row="1" Grid.Column="0" Width="200" Margin="2" SelectedIndex="0">
-                        <ComboBoxItem Content="Domaine de métier" />
-                        <ComboBoxItem Content="Musique" />
-                        <ComboBoxItem Content="Théàtre" />
-                        <ComboBoxItem Content="Cinéma"/>
-                        <ComboBoxItem Content="Autre"/>
-                    </ComboBox>
-
-                    <ComboBox Grid.Row="1" Grid.Column="0" Width="200" Margin="2" SelectedIndex="0">
-                        <ComboBoxItem Content="Métier" />
-                        <ComboBoxItem Content="Musicien" />
-                        <ComboBoxItem Content="Acteur" />
-                        <ComboBoxItem Content="Cascadeur"/>
-                        <ComboBoxItem Content="Autre"/>
-                    </ComboBox>
-                    
-                    <TextBox Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Durée du diffusion"/>
-                    <TextBox Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Date de début du contrat"/>
-                    <TextBox Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Nombre de poste"/>
-                    <TextBox Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Description du profil recherché"/>
-                    <TextBox Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Mail de l'entreprise"/>
-                    <TextBox Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Téléphone de l'entreprise"/>
-
-
-
-                    <Button Content="Ajouter" Grid.Row="2" Grid.Column="0" Height="25" Width="50"/>
-                </StackPanel>
-            </GroupBox>
-
-            <GroupBox x:Name="_EditCasting" Header="Editer un casting" Grid.Column="3" Grid.Row="1" Width="250" Background="LightPink">
-                <!--<GroupBox x:Name="_EditCasting" Header="Editer un casting" Grid.Column="3" Grid.Row="1" Visibility="{Binding SelectedBrand, Converter={StaticResource SharedObjectToVisibilityConverter}}" Width="250" Background="LightPink">-->
-                <StackPanel>
-                    <TextBox  Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Nom du casting" />
-                    <TextBox TextWrapping="Wrap" AcceptsReturn="True" Width="200" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Intitulé du poste"/>
-
-                    <ComboBox Grid.Row="1" Grid.Column="0" Width="200" Margin="2" SelectedIndex="0">
-                        <ComboBoxItem Content="Type de Contrat" />
-                        <ComboBoxItem Content="CDD" />
-                        <ComboBoxItem Content="CDI" />
-                        <ComboBoxItem Content="Stage"/>
-                        <ComboBoxItem Content="Alternance"/>
-                    </ComboBox>
-
-                    <ComboBox Grid.Row="1" Grid.Column="0" Width="200" Margin="2" SelectedIndex="0">
-                        <ComboBoxItem Content="Domaine de métier" />
-                        <ComboBoxItem Content="Musique" />
-                        <ComboBoxItem Content="Théàtre" />
-                        <ComboBoxItem Content="Cinéma"/>
-                        <ComboBoxItem Content="Autre"/>
-                    </ComboBox>
-
-                    <ComboBox Grid.Row="1" Grid.Column="0" Width="200" Margin="2" SelectedIndex="0">
-                        <ComboBoxItem Content="Métier" />
-                        <ComboBoxItem Content="Musicien" />
-                        <ComboBoxItem Content="Acteur" />
-                        <ComboBoxItem Content="Cascadeur"/>
-                        <ComboBoxItem Content="Autre"/>
-                    </ComboBox>
-
-                    <TextBox  Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Durée du diffusion"/>
-                    <TextBox  Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Date de début du contrat"/>
-                    <TextBox  Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Nombre de poste"/>
-                    <TextBox  Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Description du profil recherché"/>
-                    <TextBox  Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Mail de l'entreprise"/>
-                    <TextBox  Width="200" Margin="2" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Téléphone de l'entreprise"/>
-
-
-
-                    <Button Content="Modifier" Grid.Row="2" Grid.Column="0" Height="25" Width="75" Margin="5"/>
-                    <Button Content="Supprimer" Grid.Row="2" Grid.Column="0" Height="25" Width="75"/>
-                </StackPanel>
-            </GroupBox>
-
-        </Grid>
-    </ScrollViewer>
 </Window>

@@ -32,5 +32,7 @@ namespace MegaCasting.Wpf
             this.DataContext = this;
             InitializeComponent();
         }
+
+        
     }
 }

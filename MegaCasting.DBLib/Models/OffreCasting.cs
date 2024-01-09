@@ -1,8 +1,11 @@
-﻿using System;
+﻿using MegaCasting.Core;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace MegaCasting.DBLib.Models;
 
+//TODO : Remettre comme avant
 public partial class OffreCasting
 {
     public int Id { get; set; }
@@ -31,9 +34,21 @@ public partial class OffreCasting
 
     public string Telephone { get; set; } = null!;
 
-    public virtual DomaineMetier Domaine { get; set; } = null!;
+    //TODO : Remettre comme avant
+    public virtual DomaineMetier Domaine { get; set; }
+    public virtual Metier Metier { get; set; }
+    public virtual TypeContrat TypeContrat { get; set; }
 
-    public virtual Metier Metier { get; set; } = null!;
+    #region Constructors
 
-    public virtual TypeContrat TypeContrat { get; set; } = null!;
+
+    public OffreCasting(string intitule, int reference)
+    {
+        this.Intitule = intitule;
+        this.Reference = reference;
+        DateDebutContrat = DateTime.Now;
+        DatePublication = DateTime.Now;
+    }
+
+    #endregion
 }
