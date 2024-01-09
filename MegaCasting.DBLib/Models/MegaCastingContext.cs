@@ -23,9 +23,11 @@ public partial class MegaCastingContext : DbContext
 
     public virtual DbSet<TypeContrat> TypeContrats { get; set; }
 
+    public virtual DbSet<User> Users { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=Evann;Database=MegaCasting;Trusted_Connection=True; TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=localhost;Database=MegaCasting;TrustServerCertificate=True;Trusted_connection=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -110,6 +112,25 @@ public partial class MegaCastingContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("nom");
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.Identifier).HasName("PK_User");
+
+            entity.ToTable("user");
+
+            entity.Property(e => e.Identifier)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
+            entity.Property(e => e.HashedPassword)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("password");
+            entity.Property(e => e.UserName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("username");
         });
 
         OnModelCreatingPartial(modelBuilder);

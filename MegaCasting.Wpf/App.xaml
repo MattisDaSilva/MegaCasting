@@ -2,9 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MegaCasting.Wpf"
+             xmlns:converters="clr-namespace:MegaCasting.Wpf.Converters"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-		<ResourceDictionary Source="./Styles/Styles.xaml" ></ResourceDictionary>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:BoolToVisibilityConverter x:Key="SharedBoolToVisibilityConverter"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

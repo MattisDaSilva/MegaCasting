@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid ShowGridLines="True">
+    <Grid ShowGridLines="False">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -26,6 +26,7 @@
                   SelectedItem="{Binding SelectedTypeContrat}"
                  DisplayMemberPath="Nom"
                  Grid.Column="0"
+                 Style="{StaticResource ListeMetier}"
                   >
         </ListBox>
 
@@ -33,12 +34,14 @@
           SelectedItem="{Binding SelectedDomaineMetier}"
          DisplayMemberPath="Nom"
          Grid.Column="1"
+         Style="{StaticResource ListeMetier}"
           >
         </ListBox>
         <ListBox ItemsSource="{Binding Metiers}"
           SelectedItem="{Binding SelectedMetier}"
          DisplayMemberPath="Nom"
          Grid.Column="2"
+         Style="{StaticResource ListeMetier}"
           >
         </ListBox>
 
@@ -55,8 +58,8 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Nom : "/>
                 <TextBox x:Name="_TypeContratNomTextBox" Grid.Row="0" Grid.Column="1" DataContext="{Binding SelectedTypeContrat.Nom}" />
-                <Button x:Name="UpdateTypeContratButton" Grid.Row="1" Grid.Column="0" Content="Modifier" Click="UpdateTypeContratButton_Click"  />
-                <Button x:Name="DeleteTypeContratButton" Grid.Row="1" Grid.Column="1" Content="Supprimer" Click="DeleteTypeContratButton_Click" />
+                <Button x:Name="UpdateTypeContratButton" Grid.Row="1" Grid.Column="0" Style="{StaticResource UpdateButton}" Content="Modifier" Click="UpdateTypeContratButton_Click"  />
+                <Button x:Name="DeleteTypeContratButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource DeleteButton}" Content="Supprimer" Click="DeleteTypeContratButton_Click" />
             </Grid>
         </GroupBox>
 
@@ -73,8 +76,8 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Content="Nom : "/>
             <TextBox x:Name="_DomaineMetierNomTextBox" Grid.Row="0" Grid.Column="1" DataContext="{Binding SelectedDomaineMetier.Nom}" />
-            <Button x:Name="UpdateDomaineMetierButton" Grid.Row="1" Grid.Column="0" Content="Modifier" Click="UpdateDomaineMetierButton_Click"  />
-            <Button x:Name="DeleteDomaineMetierButton" Grid.Row="1" Grid.Column="1" Content="Supprimer" Click="DeleteDomaineMetierButton_Click" />
+            <Button x:Name="UpdateDomaineMetierButton" Grid.Row="1" Grid.Column="0" Style="{StaticResource UpdateButton}" Content="Modifier" Click="UpdateDomaineMetierButton_Click"  />
+            <Button x:Name="DeleteDomaineMetierButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource DeleteButton}" Content="Supprimer" Click="DeleteDomaineMetierButton_Click" />
         </Grid>
         </GroupBox>
 
@@ -91,8 +94,8 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Nom : "/>
                 <TextBox x:Name="_MetierNomTextBox" Grid.Row="0" Grid.Column="1" DataContext="{Binding SelectedMetier.Nom}" />
-                <Button x:Name="UpdateMetierButton" Grid.Row="1" Grid.Column="0" Content="Modifier" Click="UpdateMetierButton_Click"  />
-                <Button x:Name="DeleteMetierButton" Grid.Row="1" Grid.Column="1" Content="Supprimer" Click="DeleteMetierButton_Click" />
+                <Button x:Name="UpdateMetierButton" Grid.Row="1" Grid.Column="0" Style="{StaticResource UpdateButton}" Content="Modifier" Click="UpdateMetierButton_Click"  />
+                <Button x:Name="DeleteMetierButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource DeleteButton}" Content="Supprimer" Click="DeleteMetierButton_Click" />
             </Grid>
         </GroupBox>
         
